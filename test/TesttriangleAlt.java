@@ -4,16 +4,11 @@ import org.junit.Test;
 
 public class TesttriangleAlt {
 
-    private ThreadLocal<Rtriangle> triangle;
+    private Rtriangle triangle;
 
     @Before
     public void setUp() {
-        triangle = new ThreadLocal<Rtriangle>() {
-            @Override
-            protected Rtriangle initialValue() {
-                return RtriangleProvider.getRtriangle();
-            }
-        };
+        triangle = RtriangleProvider.getRtriangle();
     }
 
     /**
@@ -22,13 +17,15 @@ public class TesttriangleAlt {
      */
     @Test
     public void test() {
+        Assert.assertNotNull(triangle);
+
         //Use larger primitives to prevent integer overflow
-        long apexX1 = triangle.get().getApexX1();
-        long apexY1 = triangle.get().getApexY1();
-        long apexX2 = triangle.get().getApexX2();
-        long apexY2 = triangle.get().getApexY2();
-        long apexX3 = triangle.get().getApexX3();
-        long apexY3 = triangle.get().getApexY3();
+        long apexX1 = triangle.getApexX1();
+        long apexY1 = triangle.getApexY1();
+        long apexX2 = triangle.getApexX2();
+        long apexY2 = triangle.getApexY2();
+        long apexX3 = triangle.getApexX3();
+        long apexY3 = triangle.getApexY3();
 
         //Check the input for validity
         Assert.assertTrue(isTrianglePossible(apexX1, apexY1, apexX2, apexY2, apexX3, apexY3));
